@@ -2,6 +2,8 @@ const boardEl = document.getElementById('board');
 let board = Array(9).fill(null);
 let current = 'X';
 let cellEls = [];
+let queueX = [];
+let queueO = [];
 
 function buildBoard(){
   boardEl.innerHTML = '';
@@ -27,8 +29,17 @@ function checkWin(player){
 
 function handleMove(i){
   if(board[i]) return;
+  const queue = current === 'X' ? queueX : queueO;
   board[i] = current;
+  queue.push(i);
   cellEls[i].textContent = current;
+
+  if(queue.length > 3){
+    const oldest = queue.shift();
+    board[oldest] = null;
+    cellEls[oldest].textContent = '';
+  }
+
   if(checkWin(current)){ alert(current + ' wins!'); return; }
   current = current === 'X' ? 'O' : 'X';
 }
