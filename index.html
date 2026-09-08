@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fade — Tic-Tac-Toe That Never Stalls</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="stage">
+  <div class="title-block">
+    <h1>fade<span>·</span>tac·toe</h1>
+    <p id="subtitle">every 4th mark costs you your oldest one</p>
+  </div>
+
+  <div class="status-row">
+    <div class="turn-pill" id="turnPill">
+      <div class="turn-dot" id="turnDot"></div>
+      <span id="turnLabel">X to move</span>
+    </div>
+    <div class="score">X <b id="scoreX">0</b> &nbsp;·&nbsp; O <b id="scoreO">0</b></div>
+  </div>
+
+  <div class="board" id="board"></div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-swatch"></div> pulsing mark fades on your next move</div>
+  </div>
+
+  <div class="banner" id="banner"></div>
+
+  <div class="controls">
+    <button id="resetBtn">New round</button>
+    <button id="playBtn" class="primary">Play again</button>
+  </div>
+
+  <div class="mode-row">
+    <span id="modeLabel">Fade mode — max 3 marks each, oldest vanishes</span>
+    <div class="switch" id="modeSwitch"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
