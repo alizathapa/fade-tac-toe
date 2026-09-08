@@ -41,53 +41,53 @@
 
   function queueFor(p){ return p === 'X' ? queueX : queueO; }
 
-  function handleMove(i){
-    if(gameOver || board[i]) return;
-    const player = current;
-    const queue = queueFor(player);
+ function handleMove(i){
+  if(gameOver || board[i]) return;
+  const player = current;
+  const queue = queueFor(player);
 
-    board[i] = player;
-    queue.push(i);
-    renderMark(i, player, true);
+  board[i] = player;
+  queue.push(i);
+  renderMark(i, player, true);
 
-    let fadedIndex = null;
-    if(fadeMode && queue.length > 3){
-      fadedIndex = queue.shift();
-      board[fadedIndex] = null;
-    }
+  const winLine = checkWin(player);
 
-    const winLine = checkWin(player);
-
-    if(fadedIndex !== null && !winLine){
-      const el = cellEls[fadedIndex].querySelector('.mark');
-      if(el){
-        el.classList.remove('fading-warn');
-        el.classList.add('vanish');
-        setTimeout(() => { if(cellEls[fadedIndex]) cellEls[fadedIndex].innerHTML = ''; cellEls[fadedIndex].classList.remove('filled'); }, 380);
-      }
-    }
-
-    if(winLine){
-      gameOver = true;
-      scores[player]++;
-      updateScores();
-      highlightWin(winLine);
-      banner.textContent = player + ' wins the round';
-      turnLabel.textContent = player + ' wins';
-      return;
-    }
-
-    if(!fadeMode && board.every(c => c !== null)){
-      gameOver = true;
-      banner.textContent = "Draw — classic mode stalls out eventually";
-      turnLabel.textContent = 'Draw';
-      return;
-    }
-
-    current = current === 'X' ? 'O' : 'X';
-    updateTurnUI();
-    updateFadeWarnings();
+  let fadedIndex = null;
+  if(!winLine && fadeMode && queue.length > 3){
+    fadedIndex = queue.shift();
+    board[fadedIndex] = null;
   }
+
+  if(fadedIndex !== null){
+    const el = cellEls[fadedIndex].querySelector('.mark');
+    if(el){
+      el.classList.remove('fading-warn');
+      el.classList.add('vanish');
+      setTimeout(() => { if(cellEls[fadedIndex]) cellEls[fadedIndex].innerHTML = ''; cellEls[fadedIndex].classList.remove('filled'); }, 380);
+    }
+  }
+
+  if(winLine){
+    gameOver = true;
+    scores[player]++;
+    updateScores();
+    highlightWin(winLine);
+    banner.textContent = player + ' wins the round';
+    turnLabel.textContent = player + ' wins';
+    return;
+  }
+
+  if(!fadeMode && board.every(c => c !== null)){
+    gameOver = true;
+    banner.textContent = "Draw — classic mode stalls out eventually";
+    turnLabel.textContent = 'Draw';
+    return;
+  }
+
+  current = current === 'X' ? 'O' : 'X';
+  updateTurnUI();
+  updateFadeWarnings();
+}
 
   function renderMark(i, player, animate){
     const cell = cellEls[i];
