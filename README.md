@@ -19,20 +19,4 @@ about to vanish.
 - The mark about to fade pulses so you can see it coming.
 - Toggle "Classic mode" to play with the standard rules instead.
 
-## Run it
-
-Clone the repo and open `index.html` in a browser — no build step, no
-dependencies to install.
-
-```bash
-git clone <your-repo-url>
-cd fade-tac-toe
-open index.html   # or just double-click it
-```
-
-## Structure
-
-- `index.html` — markup
-- `style.css` — layout, theme, animations
-- `script.js` — game state, win detection, fade logic
 
